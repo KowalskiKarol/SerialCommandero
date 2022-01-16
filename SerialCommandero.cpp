@@ -17,7 +17,7 @@
 	char param3[PARAM_LENGTH];
 	int paramCount = 0;
 
-	void SerialCommandero::init(char* buff, bool toUCase = false)
+	void SerialCommandero::init(char* buff, bool toUCase)
 	{
 		paramCount = 0;
 		int commaIndex1 = 0;
