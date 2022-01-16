@@ -11,12 +11,10 @@
 #define TEST_MODE false
 #endif
 
-	char cmd[MAX_COMMAND_LENGTH];
-	char param1[PARAM_LENGTH];
-	char param2[PARAM_LENGTH];
-	char param3[PARAM_LENGTH];
-	int paramCount = 0;
-
+	void SerialCommandero::clearBuffer()
+	{
+		serialBuffer[0] = 0;
+	}
 	void SerialCommandero::init(char* buff, bool toUCase)
 	{
 		paramCount = 0;
@@ -64,6 +62,55 @@
 			paramCount = 0;
 		}
 	}
+	bool SerialCommandero::isSerialCommandAvailable()
+	{
+		if (Serial.available() > 0)
+		{
+			// read the incoming byte:
+			incomingByte = Serial.read();
+			if (incomingByte != 10 && incomingByte != 13)
+			{
+				strConcat(serialBuffer, incomingByte);
+				return false;
+			}
+			else //either 10 or 13
+			{
+				if (strlen(serialBuffer) > 1)
+				{
+					if (TEST_MODE)
+					{
+						Serial.print("serbuf: ");
+						Serial.println(serialBuffer);
+						delay(200);
+					}
+
+					init(serialBuffer, true);
+
+					if (TEST_MODE)
+					{
+						Serial.print("cmd: ");
+						Serial.println(cmd);
+						Serial.print("p1: ");
+						Serial.println(param1);
+						Serial.print("p2: ");
+						Serial.println(param2);
+						Serial.print("p3: ");
+						Serial.println(param3);
+						delay(200);
+					}
+					serialBuffer[0] = 0;
+					return true;
+				}
+				else
+				{
+					serialBuffer[0] = 0;
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+
 	int SerialCommandero::strLoc1(char* str, char soughtChar, int startIndex)
 	{
 		char tmpChar;
@@ -123,52 +170,4 @@
 		int lenBefore = strlen(buff);
 		buff[lenBefore] = val;
 		buff[lenBefore + 1] = 0;
-	}
-	bool SerialCommandero::isSerialCommandAvailable()
-	{
-		if (Serial.available() > 0)
-		{
-			// read the incoming byte:
-			incomingByte = Serial.read();
-			if (incomingByte != 10 && incomingByte != 13)
-			{
-				strConcat(serialBuffer, incomingByte);
-				return false;
-			}
-			else //either 10 or 13
-			{
-				if (strlen(serialBuffer) > 1)
-				{
-					if (TEST_MODE)
-					{
-						Serial.print("serbuf: ");
-						Serial.println(serialBuffer);
-						delay(200);
-					}
-
-					init(serialBuffer, true);
-
-					if (TEST_MODE)
-					{
-						Serial.print("cmd: ");
-						Serial.println(cmd);
-						Serial.print("p1: ");
-						Serial.println(param1);
-						Serial.print("p2: ");
-						Serial.println(param2);
-						Serial.print("p3: ");
-						Serial.println(param3);
-						delay(200);
-					}
-					serialBuffer[0] = 0;
-					return true;
-				}
-				else
-				{
-					serialBuffer[0] = 0;
-					return false;
-				}
-			}
-		}
-		return false;
 	}

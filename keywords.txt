@@ -15,7 +15,7 @@ strSubstr KEYWORD2
 strSubstr1 KEYWORD2
 strConcat KEYWORD2
 isSerialCommandAvailable KEYWORD2
-
+clearBuffer KEYWORD2
 ###################
 # Constants (LITERAL1)
 ###################

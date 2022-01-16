@@ -32,6 +32,7 @@ class SerialCommandero
 		void strSubstr(char* str, char* retVal, int startIndex, int endIndex, bool toUpperCase);
 		void strConcat(char* buff, char val);
 		bool isSerialCommandAvailable();
+		void clearBuffer();
 };
 
 #endif
