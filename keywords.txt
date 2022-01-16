@@ -1,0 +1,23 @@
+###################
+# Datatypes (KEYWORD1)
+###################
+
+SerialCommandero KEYWORD1
+
+###################
+# Methods and Functions (KEYWORD2)
+###################
+
+init KEYWORD2
+strLoc KEYWORD2
+strLoc1 KEYWORD2
+strSubstr KEYWORD2
+strSubstr1 KEYWORD2
+strConcat KEYWORD2
+isSerialCommandAvailable KEYWORD2
+
+###################
+# Constants (LITERAL1)
+###################
+MAX_COMMAND_LENGTH LITERAL1
+PARAM_LENGTH LITERAL1
